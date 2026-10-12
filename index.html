@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quy Trình Phối Hợp Kỹ Thuật | DSE2049-C06-G03-bangkok</title>
+  <title>Kiến Trúc & Quy Trình Chuẩn Mẫu | DSE2049-C06-G03-bangkok</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-page: #f8fafc;
@@ -16,9 +16,13 @@
       --border: #e2e8f0;
       --primary: #2563eb;
       --primary-light: #eff6ff;
-      --danger: #dc2626;
-      --danger-bg: #fef2f2;
+      --accent: #0ea5e9;
       --success: #16a34a;
+      --success-light: #f0fdf4;
+      --warning: #d97706;
+      --warning-light: #fffbeb;
+      --purple: #9333ea;
+      --purple-light: #faf5ff;
       --code-bg: #0f172a;
       --code-text: #e2e8f0;
       --radius: 12px;
@@ -41,40 +45,43 @@
     header {
       background: #ffffff;
       border-bottom: 1px solid var(--border);
-      padding: 2.5rem 1.5rem;
+      padding: 3rem 1.5rem 2.5rem;
       text-align: center;
     }
-    .badge {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
+    .badge-ref {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
       font-size: 0.85rem;
       font-weight: 600;
       background-color: var(--primary-light);
       color: var(--primary);
       border-radius: 9999px;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
     }
     header h1 {
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 800;
       color: #0f172a;
-      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
     }
     header p {
       color: var(--text-muted);
-      max-width: 650px;
+      max-width: 780px;
       margin: 0 auto;
-      font-size: 1rem;
+      font-size: 1.05rem;
     }
 
     /* Layout */
     .container {
-      max-width: 1200px;
-      margin: 2rem auto;
+      max-width: 1250px;
+      margin: 2rem auto 4rem;
       padding: 0 1.5rem;
       display: grid;
       grid-template-columns: 280px 1fr;
-      gap: 2rem;
+      gap: 2.25rem;
       align-items: start;
     }
 
@@ -86,12 +93,12 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 1.25rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
     .sidebar h3 {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       color: var(--text-muted);
       margin-bottom: 0.75rem;
     }
@@ -99,21 +106,22 @@
       list-style: none;
     }
     .sidebar li {
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
     }
     .sidebar a {
       display: block;
       padding: 0.5rem 0.75rem;
       color: var(--text-main);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 500;
       border-radius: 6px;
-      transition: background 0.15s ease;
+      transition: all 0.15s ease;
     }
     .sidebar a:hover {
       background-color: var(--primary-light);
       color: var(--primary);
+      padding-left: 0.9rem;
     }
 
     /* Main Content */
@@ -121,140 +129,149 @@
       min-width: 0;
     }
 
-    /* General Rules Banner */
-    .rules-card {
-      background-color: var(--danger-bg);
-      border: 1px solid #fecaca;
-      border-radius: var(--radius);
-      padding: 1.5rem;
+    /* Feature Grid (Điểm đắt giá) */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
       margin-bottom: 2rem;
     }
-    .rules-card h2 {
-      color: var(--danger);
-      font-size: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
+    .highlight-item {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     }
-    .rules-card ol {
-      margin-left: 1.5rem;
+    .highlight-item strong {
+      display: block;
+      color: var(--primary);
+      margin-bottom: 0.35rem;
       font-size: 0.95rem;
-      color: #991b1b;
     }
-    .rules-card li {
-      margin-bottom: 0.5rem;
+    .highlight-item p {
+      font-size: 0.88rem;
+      color: #475569;
     }
 
-    /* Member Card */
+    /* Section Cards */
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
     }
-    .member-header {
+    .card h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #0f172a;
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 0.5rem;
       border-bottom: 2px solid var(--border);
       padding-bottom: 0.75rem;
       margin-bottom: 1.25rem;
     }
-    .member-header h2 {
-      font-size: 1.35rem;
-      font-weight: 700;
+
+    /* Tag styles */
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      display: inline-block;
+      margin: 0.15rem 0;
+    }
+    .tag-src {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+    .tag-fig {
+      background: var(--purple-light);
+      color: var(--purple);
+      border-color: #e9d5ff;
+    }
+    .tag-tex {
+      background: var(--success-light);
+      color: var(--success);
+      border-color: #bbf7d0;
     }
 
-    .section-title {
-      font-size: 1rem;
+    /* Sub headers & lists */
+    .sub-title {
+      font-size: 0.95rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       margin-top: 1.25rem;
       margin-bottom: 0.5rem;
-      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
+    .sub-title.src-title { color: var(--primary); }
+    .sub-title.fig-title { color: var(--purple); }
+    .sub-title.tex-title { color: var(--success); }
 
     ul, ol {
       margin-left: 1.5rem;
       margin-bottom: 1rem;
     }
     li {
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
       color: #334155;
+      font-size: 0.92rem;
     }
 
-    /* File tag */
-    .file-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      background-color: #f1f5f9;
-      color: #0f172a;
-      border: 1px solid #cbd5e1;
-      border-radius: 4px;
-      padding: 0.15rem 0.4rem;
-    }
-
-    /* Code Blocks */
+    /* Pre & Code */
     pre {
       background: var(--code-bg);
       color: var(--code-text);
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
-      padding: 1rem 1.25rem;
+      padding: 1.25rem;
       border-radius: 8px;
       overflow-x: auto;
-      margin: 0.75rem 0 1.25rem 0;
+      margin: 0.75rem 0 1.25rem;
       border: 1px solid #334155;
+      line-height: 1.5;
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88em;
     }
     p code {
-      font-family: 'JetBrains Mono', monospace;
-      background-color: #f1f5f9;
+      background: #f1f5f9;
       color: #e11d48;
       padding: 0.1rem 0.35rem;
       border-radius: 4px;
-      font-size: 0.85em;
     }
 
-    /* Step numbers */
-    .step-item {
-      margin-bottom: 1rem;
-    }
-    .step-num {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      line-height: 24px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: white;
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: bold;
-      margin-right: 0.5rem;
-    }
-
-    /* Architecture diagram */
-    .diagram-box pre {
-      background-color: #1e293b;
+    /* Workflow Diagram & Tree */
+    .tree-box pre {
+      background-color: #090d16;
       color: #38bdf8;
-      line-height: 1.4;
-      font-size: 0.9rem;
-      padding: 1.5rem;
+    }
+    .workflow-diagram pre {
+      background-color: #090d16;
+      color: #34d399;
+      line-height: 1.5;
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 2.5rem;
       color: var(--text-muted);
       border-top: 1px solid var(--border);
       background-color: #ffffff;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 950px) {
       .container {
         grid-template-columns: 1fr;
       }
@@ -267,358 +284,288 @@
 <body>
 
   <header>
-    <span class="badge">Nhóm DSE2049-C06-G03-bangkok</span>
-    <h1>Quy Trình &amp; Kịch Bản Thao Tác Kỹ Thuật</h1>
-    <p>Kịch bản chi tiết đến từng câu lệnh, phân định rõ ràng các tệp mã nguồn để 5 thành viên làm việc song song, không bị xung đột mã nguồn.</p>
+    <div class="badge-ref">
+      <span>📐 Best Practice Target:</span>
+      <strong>LTXLDL-AIT2006-2-4.1</strong>
+    </div>
+    <h1>Thiết Kế Kiến Trúc &amp; Workflow Chuẩn Mực</h1>
+    <p>Quy chuẩn bàn giao sản phẩm dự án Airbnb Bangkok cho nhóm <strong>DSE2049-C06-G03-bangkok</strong>: Báo cáo LaTeX module hóa, trực quan kép Vector/Interactive và pipeline tự động hóa.</p>
   </header>
 
   <div class="container">
     <!-- Sidebar Navigation -->
     <nav class="sidebar">
-      <h3>Mục lục kịch bản</h3>
+      <h3>Điều hướng nhanh</h3>
       <ul>
-        <li><a href="#rules">⚠️ Quy tắc bắt buộc</a></li>
-        <li><a href="#tv1">👤 TV1: Data Ingestion</a></li>
-        <li><a href="#tv2">👤 TV2: QA &amp; Cleaning</a></li>
-        <li><a href="#tv3">👤 TV3: Business Analytics</a></li>
+        <li><a href="#highlights">🌟 Điểm cốt lõi chuẩn mẫu</a></li>
+        <li><a href="#tree">📁 I. Cấu trúc cây thư mục</a></li>
+        <li><a href="#tv1">👤 TV1: Ingestion &amp; Arch</a></li>
+        <li><a href="#tv2">👤 TV2: Cleaning &amp; QA</a></li>
+        <li><a href="#tv3">👤 TV3: Business &amp; KPI</a></li>
         <li><a href="#tv4">👤 TV4: NLP &amp; LLM</a></li>
-        <li><a href="#tv5">👤 TV5: Visualization &amp; Report</a></li>
-        <li><a href="#summary">📊 Sơ đồ tích hợp luồng</a></li>
+        <li><a href="#tv5">👤 TV5: Geospatial &amp; LaTeX</a></li>
+        <li><a href="#workflow">🔄 III. Tiến trình 4 giai đoạn</a></li>
+        <li><a href="#build-latex">⚙️ IV. Biên dịch LaTeX PDF</a></li>
       </ul>
     </nav>
 
     <!-- Main Content -->
     <main>
-      <!-- Section: Rules -->
-      <section id="rules" class="rules-card">
-        <h2>⚠️ Quy Tắc Bất Di Bất Dịch Cho Cả 5 Thành Viên</h2>
-        <ol>
-          <li>
-            <strong>Trước khi bắt đầu code mỗi ngày:</strong> Luôn kéo code mới nhất về máy:
-            <pre><code>git checkout main
-git pull origin main</code></pre>
-          </li>
-          <li><strong>Không bao giờ code thẳng trên <code>main</code>:</strong> Luôn tạo nhánh riêng cho từng tính năng / nhiệm vụ.</li>
-          <li><strong>Chỉ commit file code, dữ liệu nhỏ:</strong> Tuyệt đối không commit file <code>.gz</code>, thư mục <code>data/raw/</code> nặng, hoặc tệp bí mật <code>.env</code>.</li>
-        </ol>
+      <!-- Section: Key Highlights -->
+      <section id="highlights">
+        <div class="highlights-grid">
+          <div class="highlight-item">
+            <strong>1. Báo cáo LaTeX Module hóa</strong>
+            <p>Tách độc lập từng chương từ <code>section_1</code> đến <code>section_9</code> trong thư mục <code>reports/</code>, tự động tổng hợp ra PDF 10 trang.</p>
+          </div>
+          <div class="highlight-item">
+            <strong>2. Trực quan hóa Kép (Dual Viz)</strong>
+            <p>Xuất đồ thị vector PDF (300 DPI) để nhúng sắc nét vào LaTeX + Bản đồ tương tác HTML (Folium) phục vụ trình diễn.</p>
+          </div>
+          <div class="highlight-item">
+            <strong>3. Phân lập Script &amp; Notebook</strong>
+            <p>Tách biệt tệp <code>.py</code> tự động hóa (1 lệnh nộp bài) và tệp <code>.ipynb</code> trực quan để vấn đáp trực tiếp.</p>
+          </div>
+          <div class="highlight-item">
+            <strong>4. Nhật ký QA Min bạch</strong>
+            <p>Ghi nhận file <code>cleaning_execution_log.txt</code> và <code>qa_summary.csv</code> chứng minh định lượng biến động trước/sau làm sạch.</p>
+          </div>
+        </div>
       </section>
+
+      <!-- Section I: Target Tree -->
+      <section id="tree" class="card tree-box">
+        <h2>📁 I. Cấu Trúc Thành Phẩm Mục Tiêu (Target Repo Tree)</h2>
+        <pre><code>2627-LTXLDL-Airbnb-DSE2049-C06-G03-bangkok/
+├── configs/
+│   └── bangkok.yaml                          # Cấu hình: mốc chụp, tiền tệ THB, tọa độ 8 vùng A01-A08
+├── data/
+│   ├── raw/                                  # Dữ liệu thô (gitignore, không commit)
+│   │   ├── 2025-09-26/
+│   │   ├── 2025-12-28/
+│   │   ├── 2026-03-30/
+│   │   └── 2026-06-29/
+│   ├── processed/                            # Dữ liệu sạch & KPI
+│   │   ├── Bangkok_2025-09-26/
+│   │   ├── Bangkok_2025-12-28/
+│   │   ├── Bangkok_2026-03-30/
+│   │   ├── Bangkok_2026-06-29/
+│   │   └── kpi_Bangkok/
+│   └── samples/
+│       └── manual_labels_100.csv             # 100 review nhãn tay (Ground truth)
+├── figures/                                  # Biểu đồ PDF vector + Bản đồ tương tác HTML
+│   ├── bangkok_price_map.html                # Bản đồ tương tác Folium
+│   ├── active_listings_by_snapshot.pdf       # Xu hướng số lượng phòng
+│   ├── occupancy_rate.pdf                    # Tỷ lệ lấp đầy phòng theo quý
+│   ├── price_by_room_type.pdf                # So sánh giá 875 Entire home vs 125 Private room
+│   ├── heatmap_price_bangkok.pdf             # Phân bố giá theo 8 vùng A01-A08
+│   ├── qa_impact_analysis.pdf                # Tác động trước và sau QA
+│   ├── llm_sentiment_distribution.pdf        # Tỷ lệ cảm xúc tích cực/tiêu cực
+│   └── llm_aspect_radar.pdf                  # Radar chart 7 khía cạnh dịch vụ
+├── reports/                                  # Báo cáo LaTeX module hóa & Log QA
+│   ├── build.sh / build.bat                  # Script biên dịch LaTeX tự động ra report.pdf
+│   ├── cleaning_execution_log.txt            # Log chi tiết quá trình làm sạch
+│   ├── qa_summary.csv                        # Báo cáo số dòng lỗi, cờ gắn
+│   ├── qa_summary_metadata.json              # Metadata thống kê QA
+│   ├── technical_report.tex                  # File LaTeX chính (Main Driver)
+│   ├── section_1_intro.tex                   # Giới thiệu & Bài toán Stakeholder (TAT)
+│   ├── section_2_data.tex                    # Khảo sát dữ liệu Bangkok & 4 mốc
+│   ├── section_3_qa.tex                      # Bộ quy tắc QA & Xử lý 20 missing price mốc 4
+│   ├── section_4_kpi.tex                     # Hệ thống 5-8 chỉ số KPI
+│   ├── section_5_viz.tex                     # Phân tích không gian & thời gian
+│   ├── section_6_llm.tex                     # Phân tích LLM vs Baseline & Chi phí
+│   ├── section_7_discussion.tex              # Kiến nghị chính sách cho Bangkok
+│   ├── section_8_conclusion.tex              # Kết luận & Tự đánh giá
+│   └── section_9_references.tex              # Nguồn Inside Airbnb (CC BY 4.0)
+├── src/                                      # Mã nguồn chia module chuẩn
+│   ├── data_cleaning_utils.py                # Hàm tiện ích làm sạch dùng chung
+│   ├── clean_all_snapshots.py                # Pipeline QA làm sạch 4 mốc
+│   ├── generate_qa_summary.py                # Trích xuất thống kê QA ra CSV/JSON
+│   ├── download_and_filter.py                # Tải 12 file & Lọc đúng 1.000 listing, 5.000 review
+│   ├── sanity_check.py                       # Kiểm tra bộ điều kiện nghiệm thu
+│   ├── Bangkok_KPI.ipynb                     # Notebook tính & trực quan KPI
+│   ├── visualization.ipynb                   # Notebook vẽ biểu đồ và xuất PDF/HTML
+│   ├── llm.py                                # Trích xuất sentiment/aspects qua Gemini API
+│   ├── baseline.py                           # Mô hình đối chứng không dùng LLM (VADER/Lexicon)
+│   └── evaluate.py                           # Đánh giá Accuracy/F1 & Error Analysis
+├── run_pipeline.py                           # 1 lệnh chạy toàn bộ từ đầu đến cuối
+├── AI_USAGE.md                               # Nhật ký sử dụng AI
+├── README.md                                 # Hướng dẫn cài đặt và lệnh chạy
+├── .python-version                           # Phiên bản Python
+├── .env.example                              # Mẫu biến môi trường API Key
+└── requirements.txt                          # Thư viện ghim phiên bản</code></pre>
+      </section>
+
+      <!-- Section II: Member Responsibilities -->
+      <h2 style="margin: 2.5rem 0 1rem; font-size: 1.45rem;">II. PHÂN CÔNG TRÁCH NHIỆM 5 THÀNH VIÊN (KÈM PHẦN LATEX)</h2>
 
       <!-- TV1 -->
       <section id="tv1" class="card">
-        <div class="member-header">
-          <h2>👤 THÀNH VIÊN 1: Pipeline &amp; Data Ingestion Lead</h2>
-        </div>
-
-        <div class="section-title">Mục tiêu &amp; Nhiệm vụ</div>
+        <h2>👤 THÀNH VIÊN 1: Lead Architecture &amp; Ingestion</h2>
+        
+        <div class="sub-title src-title">💻 Mã nguồn phụ trách (<code>src/</code>):</div>
         <ul>
-          <li>Viết script tải tự động 12 tệp từ Inside Airbnb (<code>listings</code>, <code>calendar</code>, <code>reviews</code> cho 4 mốc).</li>
-          <li>Viết hàm lọc dữ liệu theo 1.000 listing và 5.000 review; gán 8 vùng <code>A01</code>–<code>A08</code>.</li>
-          <li>Viết script kiểm tra tự động (<span class="file-tag">sanity_check.py</span>) theo đúng các tiêu chí của đề bài.</li>
-          <li>Viết bộ khung điều phối <span class="file-tag">run_pipeline.py</span>.</li>
+          <li><span class="tag tag-src">src/download_and_filter.py</span>: Tải tự động 12 file nén, lọc theo ID (<code>Listing</code>, <code>Review</code>), gán vùng <code>A01</code>–<code>A08</code>.</li>
+          <li><span class="tag tag-src">src/sanity_check.py</span>: Kiểm thử tự động (875/125 room type, review=0, mốc cuối thiếu 20 giá, mỗi vùng 120–130 listing).</li>
+          <li><span class="tag tag-src">run_pipeline.py</span>: Điều phối gọi tuần tự: Download &rarr; Filter &rarr; Clean &rarr; KPI &rarr; LLM &rarr; Viz &rarr; Compile PDF.</li>
         </ul>
 
-        <div class="section-title">Các tệp phụ trách tạo &amp; code</div>
-        <p>
-          <span class="file-tag">src/download.py</span> &bull; 
-          <span class="file-tag">src/filter.py</span> &bull; 
-          <span class="file-tag">src/sanity_check.py</span> &bull; 
-          <span class="file-tag">run_pipeline.py</span>
-        </p>
-
-        <div class="section-title">Quy trình thao tác lệnh từng bước</div>
-        <div class="step-item">
-          <p><span class="step-num">1</span>Tạo nhánh riêng và chuyển sang nhánh đó:</p>
-          <pre><code>git checkout -b feat/download-filter-tv1</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">2</span>Code nội dung các tệp trong thư mục <code>src/</code>:</p>
-          <ul>
-            <li>Trong <code>src/download.py</code>: Đọc cấu hình từ <code>configs/bangkok.yaml</code>, tải 3 file nén mỗi mốc vào <code>data/raw/&lt;mốc&gt;/</code>.</li>
-            <li>Trong <code>src/filter.py</code>: Lọc ra đúng 1.000 <code>listing_id</code> và 5.000 <code>review_id</code> từ danh sách ID của nhóm. Gán cột <code>analysis_area</code> dựa trên tọa độ kinh/vĩ độ vào 8 vùng <code>A01</code>–<code>A08</code>.</li>
-            <li>Trong <code>src/sanity_check.py</code>: Viết các assertion kiểm tra:
-              <ul>
-                <li>Đúng 875 <code>Entire home/apt</code> và 125 <code>Private room</code>.</li>
-                <li><code>number_of_reviews = 0</code> lần lượt là 50, 30, 25, 25.</li>
-                <li>Mốc cuối thiếu đúng 20 giá.</li>
-                <li>Mỗi vùng có 120–130 listing.</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">3</span>Chạy thử trên máy cục bộ:</p>
-          <pre><code>python src/download.py
-python src/filter.py
-python src/sanity_check.py</code></pre>
-          <p><em>(Nếu màn hình in ra "Sanity Check Passed" là đạt).</em></p>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">4</span>Lưu và đẩy lên GitHub:</p>
-          <pre><code>git add src/download.py src/filter.py src/sanity_check.py run_pipeline.py AI_USAGE.md
-git commit -m "feat(ingest): hoan thien download, loc du lieu va sanity check"
-git push origin feat/download-filter-tv1</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">5</span>Mở Pull Request (PR):</p>
-          <p>Lên web GitHub, bấm <strong>Compare &amp; pull request</strong> &rarr; Gửi PR vào <code>main</code> &rarr; Tag <strong>TV2</strong> vào review code.</p>
-        </div>
+        <div class="sub-title tex-title">📝 Soạn thảo Báo cáo LaTeX &amp; Repo (<code>reports/</code>):</div>
+        <ul>
+          <li><span class="tag tag-tex">reports/section_1_intro.tex</span>: Bối cảnh bài toán, chọn bên đặt hàng là Tổng cục Du lịch Thái Lan (TAT).</li>
+          <li><span class="tag tag-tex">reports/section_2_data.tex</span>: Đặc tả dữ liệu Bangkok qua 4 mốc, ranh giới 8 vùng phân tích.</li>
+          <li><span class="tag tag-tex">reports/technical_report.tex</span>: Khung chính (cấu hình packages, trang bìa, mục lục).</li>
+          <li><span class="tag tag-src">README.md</span>, <span class="tag tag-src">configs/bangkok.yaml</span>.</li>
+        </ul>
       </section>
 
       <!-- TV2 -->
       <section id="tv2" class="card">
-        <div class="member-header">
-          <h2>👤 THÀNH VIÊN 2: Data QA &amp; Cleaning Specialist</h2>
-        </div>
-
-        <div class="section-title">Mục tiêu &amp; Nhiệm vụ</div>
+        <h2>👤 THÀNH VIÊN 2: Data Cleaning &amp; QA Specialist</h2>
+        
+        <div class="sub-title src-title">💻 Mã nguồn phụ trách (<code>src/</code>):</div>
         <ul>
-          <li>Khảo sát dữ liệu, lập từ điển dữ liệu (<span class="file-tag">reports/data_dictionary.md</span>).</li>
-          <li>Viết bộ quy tắc làm sạch dữ liệu trong <span class="file-tag">src/qa.py</span>.</li>
-          <li>Xuất báo cáo kết quả làm sạch ra <span class="file-tag">reports/qa_report.csv</span>.</li>
+          <li><span class="tag tag-src">src/data_cleaning_utils.py</span>: Hàm tiện ích ép kiểu <code>price</code> sang số thực <code>THB</code>, lọc tọa độ ngoài bounding box, xử lý ngoại lai <code>minimum_nights</code>.</li>
+          <li><span class="tag tag-src">src/clean_all_snapshots.py</span>: Pipeline quét 4 mốc, xử lý 20 listing thiếu giá ở mốc 4 (gán cờ <code>flag_missing_price</code>, điền giá trị trung vị theo loại phòng &amp; vùng). Lưu dữ liệu sạch ra <code>data/processed/Bangkok_&lt;mốc&gt;/</code>.</li>
+          <li><span class="tag tag-src">src/generate_qa_summary.py</span>: Sinh file <span class="tag tag-src">reports/qa_summary.csv</span> và <span class="tag tag-src">reports/cleaning_execution_log.txt</span>.</li>
         </ul>
 
-        <div class="section-title">Các tệp phụ trách tạo &amp; code</div>
-        <p>
-          <span class="file-tag">src/qa.py</span> &bull; 
-          <span class="file-tag">reports/qa_report.csv</span> &bull; 
-          <span class="file-tag">reports/data_dictionary.md</span>
-        </p>
+        <div class="sub-title fig-title">📊 Đồ thị phụ trách (<code>figures/</code>):</div>
+        <ul>
+          <li><span class="tag tag-fig">figures/qa_impact_analysis.pdf</span>: So sánh phân bố giá trước và sau khi làm sạch QA.</li>
+        </ul>
 
-        <div class="section-title">Quy trình thao tác lệnh từng bước</div>
-        <div class="step-item">
-          <p><span class="step-num">1</span>Kéo dữ liệu đã lọc từ TV1 và tạo nhánh:</p>
-          <pre><code>git checkout main
-git pull origin main
-git checkout -b feat/qa-cleaning-tv2</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">2</span>Code nội dung <code>src/qa.py</code>:</p>
-          <ul>
-            <li><strong>Chuẩn hóa giá:</strong> Chuyển chuỗi tiền tệ (ví dụ <code>฿1,500.00</code> hoặc <code>$1,500.00</code>) sang số thực float.</li>
-            <li><strong>Xử lý 20 dòng thiếu giá ở mốc 4:</strong> Tạo cờ <code>flag_missing_price = True</code>, điền giá trị thay thế (imputation) bằng trung vị của cùng loại phòng trong cùng vùng.</li>
-            <li><strong>Xử lý ngoại lai (Outliers):</strong> Gắn cờ các phòng có giá vượt ngưỡng trần THB hoặc số đêm tối thiểu <code>minimum_nights &gt; 365</code>.</li>
-            <li><strong>Xuất báo cáo:</strong> Lưu các thống kê (số dòng vi phạm, KPI trước/sau khi sửa) vào <code>reports/qa_report.csv</code>.</li>
-            <li>Lưu dữ liệu đã làm sạch vào <code>data/processed/</code> (định dạng parquet hoặc csv).</li>
-          </ul>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">3</span>Chạy thử trên máy:</p>
-          <pre><code>python src/qa.py</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">4</span>Lưu và đẩy lên GitHub:</p>
-          <pre><code>git add src/qa.py reports/qa_report.csv reports/data_dictionary.md AI_USAGE.md
-git commit -m "feat(qa): hoan thien bo quy tac qa va xuat bao cao qa_report"
-git push origin feat/qa-cleaning-tv2</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">5</span>Mở Pull Request:</p>
-          <p>Gửi PR vào <code>main</code>, tag <strong>TV3</strong> vào review code.</p>
-        </div>
+        <div class="sub-title tex-title">📝 Soạn thảo Báo cáo LaTeX (<code>reports/</code>):</div>
+        <ul>
+          <li><span class="tag tag-tex">reports/section_3_qa.tex</span>: Bảng quy tắc QA (Tên &rarr; Điều kiện &rarr; Lý do &rarr; Hành động), phân tích định lượng tác động làm sạch.</li>
+        </ul>
       </section>
 
       <!-- TV3 -->
       <section id="tv3" class="card">
-        <div class="member-header">
-          <h2>👤 THÀNH VIÊN 3: Business Analytics &amp; KPI Lead</h2>
-        </div>
-
-        <div class="section-title">Mục tiêu &amp; Nhiệm vụ</div>
+        <h2>👤 THÀNH VIÊN 3: Business Analytics &amp; KPI Lead</h2>
+        
+        <div class="sub-title src-title">💻 Mã nguồn phụ trách (<code>src/</code>):</div>
         <ul>
-          <li>Thiết kế và lập trình tính toán 5–8 chỉ số KPI thị trường Airbnb Bangkok phục vụ đối tượng đặt hàng (TAT / Hiệp hội Khách sạn).</li>
-          <li>Đảm bảo có KPI theo khu vực (<code>analysis_area</code>), theo thời gian (4 mốc), và kết hợp kết quả review.</li>
-          <li>Xuất kết quả ra <code>data/processed/kpi_*.csv</code>.</li>
+          <li><span class="tag tag-src">src/Bangkok_KPI.ipynb</span>: Lập trình tính toán:
+            <ul>
+              <li>ADR (Average Daily Rate), Occupancy Rate (từ <code>calendar.csv.gz</code>), RevPAU theo 8 vùng <code>A01</code>–<code>A08</code>.</li>
+              <li>Tỷ lệ Host chuyên nghiệp và biến động phòng giữa 4 mốc.</li>
+            </ul>
+          </li>
+          <li>Xuất ma trận số liệu tính toán vào <code>data/processed/kpi_Bangkok/</code>.</li>
         </ul>
 
-        <div class="section-title">Các tệp phụ trách tạo &amp; code</div>
-        <p>
-          <span class="file-tag">src/kpi.py</span> &bull; 
-          <span class="file-tag">data/processed/kpi_summary.csv</span>
-        </p>
+        <div class="sub-title fig-title">📊 Đồ thị phụ trách (<code>figures/</code>):</div>
+        <ul>
+          <li><span class="tag tag-fig">figures/occupancy_rate.pdf</span>: Tỷ lệ lấp đầy phòng theo từng quý.</li>
+          <li><span class="tag tag-fig">figures/active_listings_by_snapshot.pdf</span>: Biến động số lượng phòng hoạt động.</li>
+          <li><span class="tag tag-fig">figures/price_by_room_type.pdf</span>: So sánh giá giữa Entire home/apt và Private room.</li>
+        </ul>
 
-        <div class="section-title">Quy trình thao tác lệnh từng bước</div>
-        <div class="step-item">
-          <p><span class="step-num">1</span>Cập nhật code sạch từ TV2 và tạo nhánh:</p>
-          <pre><code>git checkout main
-git pull origin main
-git checkout -b feat/kpi-calculation-tv3</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">2</span>Code nội dung <code>src/kpi.py</code>:</p>
-          <ul>
-            <li>Đọc dữ liệu đã qua QA từ <code>data/processed/</code>.</li>
-            <li>Lập trình các hàm tính KPI:
-              <ol>
-                <li><code>calc_adr()</code>: Giá trung bình ngày theo từng vùng và từng mốc (THB).</li>
-                <li><code>calc_occupancy_rate()</code>: Tỷ lệ lấp đầy phòng ước tính theo từng tháng/quý từ bảng <code>calendar</code>.</li>
-                <li><code>calc_revpau()</code>: Doanh thu ước tính trên mỗi phòng có sẵn (ADR &times; Occupancy).</li>
-                <li><code>calc_host_pro_rate()</code>: Tỷ lệ chủ nhà chuyên nghiệp (sở hữu &gt; 1 chỗ ở).</li>
-                <li><code>calc_churn_rate()</code>: Tỷ lệ chỗ ở rời bỏ / gia nhập thị trường qua 4 mốc.</li>
-              </ol>
-            </li>
-            <li>Xuất toàn bộ bảng chỉ số ra <code>data/processed/kpi_summary.csv</code>.</li>
-          </ul>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">3</span>Chạy thử trên máy:</p>
-          <pre><code>python src/kpi.py</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">4</span>Lưu và đẩy lên GitHub:</p>
-          <pre><code>git add src/kpi.py data/processed/kpi_summary.csv AI_USAGE.md
-git commit -m "feat(kpi): hien thuc cac ham tinh toan kpi thi truong bangkok"
-git push origin feat/kpi-calculation-tv3</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">5</span>Mở Pull Request:</p>
-          <p>Gửi PR vào <code>main</code>, tag <strong>TV5</strong> vào review để TV5 dùng dữ liệu vẽ biểu đồ.</p>
-        </div>
+        <div class="sub-title tex-title">📝 Soạn thảo Báo cáo LaTeX (<code>reports/</code>):</div>
+        <ul>
+          <li><span class="tag tag-tex">reports/section_4_kpi.tex</span>: Định nghĩa 5–8 công thức toán học, đơn vị tính và ý nghĩa kinh doanh cho thị trường Bangkok.</li>
+        </ul>
       </section>
 
       <!-- TV4 -->
       <section id="tv4" class="card">
-        <div class="member-header">
-          <h2>👤 THÀNH VIÊN 4: NLP &amp; LLM Engineer</h2>
-        </div>
-
-        <div class="section-title">Mục tiêu &amp; Nhiệm vụ</div>
+        <h2>👤 THÀNH VIÊN 4: NLP &amp; LLM Engineer</h2>
+        
+        <div class="sub-title src-title">💻 Mã nguồn phụ trách (<code>src/</code>):</div>
         <ul>
-          <li>Quản lý bộ dữ liệu 1.000 review mẫu LLM và 100 review nhãn tay.</li>
-          <li>Cùng nhóm dán nhãn 100 review vào <span class="file-tag">data/samples/manual_labels_100.csv</span>.</li>
-          <li>Viết phương pháp đối chứng (Baseline không dùng LLM) trong <span class="file-tag">src/baseline.py</span>.</li>
-          <li>Viết script gọi Gemini API trích xuất cảm xúc/khía cạnh có cache trong <span class="file-tag">src/llm.py</span>.</li>
-          <li>Đánh giá chất lượng (Accuracy, F1-score) trong <span class="file-tag">src/evaluate.py</span>.</li>
+          <li><span class="tag tag-src">src/baseline.py</span>: Bộ phân loại cảm xúc và khía cạnh truyền thống bằng rule-based / VADER / TextBlob.</li>
+          <li><span class="tag tag-src">src/llm.py</span>: Tích hợp Gemini API với cơ chế caching JSONL (<code>data/processed/llm_cache.jsonl</code>), trích xuất cấu trúc sentiment &amp; 7 khía cạnh. Hỗ trợ cờ <code>--skip-llm</code>.</li>
+          <li><span class="tag tag-src">src/evaluate.py</span>: Đánh giá mô hình trên 100 nhãn tay (<span class="tag tag-src">data/samples/manual_labels_100.csv</span>), tính Confusion Matrix, Macro-F1 và dự toán chi phí token khi scale.</li>
         </ul>
 
-        <div class="section-title">Các tệp phụ trách tạo &amp; code</div>
-        <p>
-          <span class="file-tag">data/samples/manual_labels_100.csv</span> &bull; 
-          <span class="file-tag">src/baseline.py</span> &bull; 
-          <span class="file-tag">src/llm.py</span> &bull; 
-          <span class="file-tag">src/evaluate.py</span>
-        </p>
+        <div class="sub-title fig-title">📊 Đồ thị phụ trách (<code>figures/</code>):</div>
+        <ul>
+          <li><span class="tag tag-fig">figures/llm_sentiment_distribution.pdf</span>: Tỷ lệ cảm xúc tích cực / tiêu cực.</li>
+          <li><span class="tag tag-fig">figures/llm_aspect_radar.pdf</span>: Radar chart phân bố 7 khía cạnh dịch vụ du lịch.</li>
+        </ul>
 
-        <div class="section-title">Quy trình thao tác lệnh từng bước</div>
-        <div class="step-item">
-          <p><span class="step-num">1</span>Tạo nhánh riêng:</p>
-          <pre><code>git checkout main
-git pull origin main
-git checkout -b feat/llm-sentiment-tv4</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">2</span>Triển khai code:</p>
-          <ul>
-            <li><code>data/samples/manual_labels_100.csv</code>: Điền nhãn tay cho 100 review (sentiment: positive/mixed/negative; khía cạnh: location, cleanliness, host, value, amenities, noise, safety).</li>
-            <li><code>src/baseline.py</code>: Dùng từ điển hoặc NLP truyền thống (VADER/TextBlob/Rule-based) để phân loại.</li>
-            <li><code>src/llm.py</code>: Lấy API key từ biến môi trường <code>os.getenv("GEMINI_API_KEY")</code>; trích xuất dạng JSON; lưu cache tại <code>data/processed/llm_cache.jsonl</code>; bổ sung cờ <code>--skip-llm</code> khi test.</li>
-            <li><code>src/evaluate.py</code>: So sánh kết quả LLM và Baseline với 100 nhãn tay; tính Accuracy, Macro-F1; in báo cáo phân tích lỗi.</li>
-          </ul>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">3</span>Chạy thử trên máy:</p>
-          <pre><code>python src/baseline.py
-python src/llm.py
-python src/evaluate.py</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">4</span>Lưu và đẩy lên GitHub:</p>
-          <pre><code>git add data/samples/manual_labels_100.csv src/baseline.py src/llm.py src/evaluate.py AI_USAGE.md
-git commit -m "feat(llm): hoan thien pipeline llm, baseline va danh gia f1"
-git push origin feat/llm-sentiment-tv4</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">5</span>Mở Pull Request:</p>
-          <p>Gửi PR vào <code>main</code>, tag <strong>TV1</strong> và <strong>TV5</strong> vào review.</p>
-        </div>
+        <div class="sub-title tex-title">📝 Soạn thảo Báo cáo LaTeX (<code>reports/</code>):</div>
+        <ul>
+          <li><span class="tag tag-tex">reports/section_6_llm.tex</span>: Thiết kế Prompt, cấu trúc JSON Schema, bảng so sánh F1 giữa LLM vs Baseline, phân tích ca lỗi (Error Analysis) và bài toán chi phí API.</li>
+        </ul>
       </section>
 
       <!-- TV5 -->
       <section id="tv5" class="card">
-        <div class="member-header">
-          <h2>👤 THÀNH VIÊN 5: Data Visualization &amp; Technical Writer</h2>
-        </div>
-
-        <div class="section-title">Mục tiêu &amp; Nhiệm vụ</div>
+        <h2>👤 THÀNH VIÊN 5: Geospatial Viz &amp; Technical Report Integrator</h2>
+        
+        <div class="sub-title src-title">💻 Mã nguồn &amp; Tooling phụ trách:</div>
         <ul>
-          <li>Viết script tự động vẽ toàn bộ biểu đồ theo 3 góc độ (Không gian, Thời gian, LLM) lưu vào <code>figures/</code>.</li>
-          <li>Quản lý, kiểm duyệt tệp <span class="file-tag">AI_USAGE.md</span> của cả nhóm.</li>
-          <li>Soạn thảo báo cáo kỹ thuật PDF 10 trang (<span class="file-tag">reports/report.pdf</span>).</li>
-          <li>Viết tài liệu hướng dẫn <span class="file-tag">README.md</span>.</li>
+          <li><span class="tag tag-src">src/visualization.ipynb</span>:
+            <ul>
+              <li>Vẽ bản đồ nhiệt mật độ &amp; giá: <span class="tag tag-fig">figures/heatmap_price_bangkok.pdf</span> (nhúng vào báo cáo PDF).</li>
+              <li>Sinh bản đồ tương tác HTML Folium: <span class="tag tag-fig">figures/bangkok_price_map.html</span> (hiển thị 8 vùng hình chữ nhật và cụm lưu trú).</li>
+            </ul>
+          </li>
+          <li><span class="tag tag-src">reports/build.sh</span> / <span class="tag tag-src">reports/build.bat</span>: Script 1 dòng biên dịch LaTeX tự động bằng <code>pdflatex</code>.</li>
         </ul>
 
-        <div class="section-title">Các tệp phụ trách tạo &amp; code</div>
-        <p>
-          <span class="file-tag">src/viz.py</span> &bull; 
-          <span class="file-tag">figures/*.png</span> &bull; 
-          <span class="file-tag">reports/report.pdf</span> &bull; 
-          <span class="file-tag">README.md</span> &bull; 
-          <span class="file-tag">AI_USAGE.md</span>
-        </p>
-
-        <div class="section-title">Quy trình thao tác lệnh từng bước</div>
-        <div class="step-item">
-          <p><span class="step-num">1</span>Kéo dữ liệu mới nhất (đã có kết quả KPI và LLM) và tạo nhánh:</p>
-          <pre><code>git checkout main
-git pull origin main
-git checkout -b feat/viz-reporting-tv5</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">2</span>Code nội dung <code>src/viz.py</code> để sinh tự động các biểu đồ:</p>
-          <ul>
-            <li><strong>Biểu đồ 1 (Không gian):</strong> Bản đồ mật độ listing và giá trung bình trên 8 vùng chữ nhật A01–A08 của Bangkok.</li>
-            <li><strong>Biểu đồ 2 (Thời gian):</strong> Biểu đồ đường biến động công suất phòng và giá qua 4 mốc (cuối năm vs Songkran vs mùa mưa).</li>
-            <li><strong>Biểu đồ 3 (LLM):</strong> Biểu đồ cột/radar thể hiện tỷ lệ khen/chê theo từng khía cạnh dịch vụ.</li>
-          </ul>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">3</span>Soạn thảo báo cáo và tài liệu:</p>
-          <ul>
-            <li>Chèn các biểu đồ từ <code>figures/</code> vào báo cáo PDF (<code>reports/report.pdf</code>).</li>
-            <li>Rà soát <code>AI_USAGE.md</code>, bảo đảm ghi đủ công cụ, prompt then chốt và các lỗi AI gặp phải.</li>
-            <li>Cập nhật <code>README.md</code> với hướng dẫn cài đặt và lệnh chạy 1 dòng duy nhất.</li>
-          </ul>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">4</span>Chạy thử sinh hình ảnh:</p>
-          <pre><code>python src/viz.py</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">5</span>Lưu và đẩy lên GitHub:</p>
-          <pre><code>git add src/viz.py figures/ reports/report.pdf README.md AI_USAGE.md
-git commit -m "feat(report): hoan thien do thi tu dong, bao cao pdf va readme"
-git push origin feat/viz-reporting-tv5</code></pre>
-        </div>
-        <div class="step-item">
-          <p><span class="step-num">6</span>Mở Pull Request:</p>
-          <p>Gửi PR vào <code>main</code>, tag <strong>cả nhóm</strong> vào duyệt báo cáo cuối cùng.</p>
-        </div>
+        <div class="sub-title tex-title">📝 Quản trị Báo cáo LaTeX &amp; AI:</div>
+        <ul>
+          <li><span class="tag tag-tex">reports/section_5_viz.tex</span>: Phân tích sâu insight không gian và biến động thời gian.</li>
+          <li><span class="tag tag-tex">reports/section_7_discussion.tex</span> &amp; <span class="tag tag-tex">section_8_conclusion.tex</span>: Tổng kết phát hiện và đề xuất chính sách cho du lịch Bangkok.</li>
+          <li>Quản trị và kiểm duyệt tệp <span class="tag tag-src">AI_USAGE.md</span> của toàn nhóm.</li>
+          <li>Biên dịch và canh chỉnh bản báo cáo PDF cuối cùng <span class="tag tag-tex">reports/technical_report.pdf</span> (chuẩn 10 trang).</li>
+        </ul>
       </section>
 
-      <!-- Architecture Flowchart -->
-      <section id="summary" class="card diagram-box">
-        <div class="member-header">
-          <h2>📊 Sơ Đồ Tiến Trình Kết Nối Giữa Các Thành Viên</h2>
-        </div>
-        <p>Quy trình luân chuyển dữ liệu và phối hợp giữa các vị trí:</p>
-        <pre><code>[TV1: Tải &amp; Lọc ID &amp; Sanity Check] 
-               ↓ (dữ liệu thô đã lọc)
-[TV2: Làm sạch, gắn cờ QA, Imputation]
-               ↓ (dữ liệu sạch chuẩn)
-       ┌───────┴──────────────────┐
-       ↓                          ↓
-[TV3: Tính 5-8 KPI]       [TV4: Chạy LLM, Baseline &amp; Eval]
-       ↓                          ↓
-       └───────┬──────────────────┘
-               ↓ (kết quả số liệu &amp; bảng tổng hợp)
-[TV5: Sinh biểu đồ figures/ &amp; Soạn Báo cáo PDF 10 trang]
-               ↓
-[Cả nhóm: Chạy test 1 lệnh trên máy sạch → Gắn git tag final]</code></pre>
+      <!-- Section III: Multi-stage Workflow -->
+      <section id="workflow" class="card workflow-diagram">
+        <h2>🔄 III. Workflow Phối Hợp GitHub Theo 4 Giai Đoạn</h2>
+        <pre><code>[Giai đoạn 1: Chuẩn bị & Dữ liệu]
+TV1: download_and_filter.py + sanity_check.py 
+       ↓ (đẩy lên nhánh dev, merge vào main)
+Cả nhóm pull code, TV4 mở file manual_labels_100.csv để cả nhóm cùng dán nhãn 100 review.
+
+[Giai đoạn 2: QA & KPI song song]
+TV2: data_cleaning_utils.py + clean_all_snapshots.py → sinh data/processed/ & qa_summary.csv
+       ↓ (merge vào main)
+TV3: lấy data/processed/ để tính Bangkok_KPI.ipynb → sinh data/processed/kpi_Bangkok/ & figures/*.pdf
+TV4: lấy data/processed/ để chạy baseline.py, llm.py, evaluate.py
+
+[Giai đoạn 3: Trực quan hóa & Soạn Báo cáo LaTeX]
+TV5: lấy số liệu của TV3 & TV4 vẽ bản đồ bangkok_price_map.html & heatmap_price_bangkok.pdf
+Các thành viên: Viết đồng thời vào các file section_*.tex được phân công trong reports/
+TV5: Chạy build.bat biên dịch ra technical_report.pdf (kiểm tra chuẩn 10 trang).
+
+[Giai đoạn 4: Tích hợp run_pipeline.py & Kiểm thử máy sạch]
+TV1 ráp nối run_pipeline.py gọi tuần tự tất cả module.
+Cả nhóm clone ra thư mục mới, chạy thử 1 lệnh duy nhất thành công → Gắn tag final.</code></pre>
+      </section>
+
+      <!-- Section IV: LaTeX Build Guide -->
+      <section id="build-latex" class="card">
+        <h2>⚙️ IV. Hướng Dẫn Biên Dịch Báo Cáo LaTeX (<code>reports/</code>)</h2>
+        <p>Để xuất ra tệp PDF hoàn chỉnh kết hợp cả 9 chương và các hình vector trong <code>figures/</code>, tạo script biên dịch tự động:</p>
+
+        <p style="margin-top: 1rem;">Nội dung tệp <code>reports/build.bat</code> (Windows):</p>
+        <pre><code>@echo off
+echo Compiling LaTeX Report...
+pdflatex -interaction=nonstopmode technical_report.tex
+pdflatex -interaction=nonstopmode technical_report.tex
+echo Done! Output file: technical_report.pdf</code></pre>
+
+        <p>Nội dung tệp <code>reports/build.sh</code> (macOS / Linux):</p>
+        <pre><code>#!/bin/bash
+echo "Compiling LaTeX Report..."
+pdflatex -interaction=nonstopmode technical_report.tex
+pdflatex -interaction=nonstopmode technical_report.tex
+echo "Done! Output file: technical_report.pdf"</code></pre>
+
+        <p style="margin-top: 0.75rem;">Khi TV5 hoặc bất kỳ thành viên nào chạy <code>cd reports &amp;&amp; build.bat</code> (hoặc <code>./build.sh</code>), toàn bộ các chương <code>section_1</code> đến <code>section_9</code> cùng đồ thị trong <code>figures/</code> sẽ tự động xuất ra bản in PDF đồng nhất.</p>
       </section>
     </main>
   </div>
 
   <footer>
-    DSE2049 &bull; Bangkok Airbnb Analytics &bull; Project Workflow Documentation
+    DSE2049 &bull; DSE2049-C06-G03-bangkok &bull; Chuẩn mực kiến trúc &amp; vận hành LTXLDL-AIT2006-2-4.1
   </footer>
 
 </body>
